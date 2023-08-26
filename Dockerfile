@@ -2,7 +2,7 @@
 FROM ubuntu:latest
 
 # Metadata como el mantenedor del Dockerfile
-LABEL maintainer="your-email@example.com"
+LABEL maintainer="alexander.pinna@protonmail.com"
 
 # Configurar variables de entorno para instalaciones no interactivas
 ENV DEBIAN_FRONTEND=noninteractive
