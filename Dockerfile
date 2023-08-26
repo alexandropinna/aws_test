@@ -41,7 +41,7 @@ RUN repo_version=$(lsb_release -r -s || grep -oP '(?<=^VERSION_ID=).+' /etc/os-r
 
 # Instalar Apache y poner un Hola Mundo
 RUN apt-get install -y apache2 \
-    && echo '<h1>Hola Mundo</h1>' > /var/www/html/index.html
+    && echo '<h1>Hola Mundo 1.0</h1>' > /var/www/html/index.html
 
 # Exponer puertos necesarios
 EXPOSE 80 5432
