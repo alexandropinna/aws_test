@@ -37,7 +37,7 @@ module "compute" {
 module "ecs" {
   source = "./modules/ecs"
 
-  cluster_name          = "arroyo-cluster-v1_0"
+  cluster_name          = "arroyo-cluster"
   task_name             = "web-task"
   service_name          = "web-service"
   public_subnet_id      = module.vpc.public_subnet_id
