@@ -28,9 +28,7 @@ RUN apt-get install -y maven
 
 # Instalar PostgreSQL
 RUN apt-get install -y postgresql postgresql-contrib
-# Copiar el script de inicialización de la base de datos al contenedor
 COPY init-db.sh /init-db.sh
-# Dar permisos de ejecución al script
 RUN chmod +x /init-db.sh
 
 # Instalar Java JRE

@@ -44,19 +44,19 @@ resource "aws_ecs_task_definition" "arroyo-prueba_tec" {
 
     environment = [
       {
-        name = "DB_HOST",
+        name  = "DB_HOST",
         value = var.db_host
       },
       {
-        name = "DB_PORT",
+        name  = "DB_PORT",
         value = var.db_port
       },
       {
-        name = "DB_USER",
+        name  = "DB_USER",
         value = var.db_username
       },
       {
-        name = "DB_PASS",
+        name  = "DB_PASS",
         value = var.db_password
       }
     ]
@@ -69,7 +69,7 @@ resource "aws_ecs_service" "nginx_service" {
   task_definition = aws_ecs_task_definition.arroyo-prueba_tec.arn
   launch_type     = "FARGATE"
   network_configuration {
-    subnets = [var.public_subnet_id]
+    subnets         = [var.public_subnet_id]
     security_groups = [var.sg_public_instance_id]
 
     assign_public_ip = true

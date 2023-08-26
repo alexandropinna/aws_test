@@ -3,7 +3,7 @@ resource "aws_vpc" "vpc_virginia" {
   tags = {
     "Name" = "vpc_virginia-${local.sufix}"
   }
-} 
+}
 
 resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.vpc_virginia.id
@@ -15,8 +15,8 @@ resource "aws_subnet" "public_subnet" {
 }
 
 resource "aws_subnet" "rds_subnet_1" {
-  vpc_id     = aws_vpc.vpc_virginia.id
-  cidr_block = var.subnets[1]
+  vpc_id            = aws_vpc.vpc_virginia.id
+  cidr_block        = var.subnets[1]
   availability_zone = "us-east-1a"
 
   tags = {
@@ -27,8 +27,8 @@ resource "aws_subnet" "rds_subnet_1" {
   ]
 }
 resource "aws_subnet" "rds_subnet_2" {
-  vpc_id     = aws_vpc.vpc_virginia.id
-  cidr_block = var.subnets[2]
+  vpc_id            = aws_vpc.vpc_virginia.id
+  cidr_block        = var.subnets[2]
   availability_zone = "us-east-1b"
 
   tags = {

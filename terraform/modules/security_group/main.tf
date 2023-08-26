@@ -2,7 +2,7 @@
 resource "aws_security_group" "sg_public_instance" {
   name        = "Public Instance SG"
   description = "Allow SSH inbound traffic and ALL egress traffic"
-  vpc_id            = var.vpc_id 
+  vpc_id      = var.vpc_id
 
   dynamic "ingress" {
     for_each = var.ingress_ports_list
@@ -13,7 +13,7 @@ resource "aws_security_group" "sg_public_instance" {
       cidr_blocks = ingress.value == 22 ? [var.ssh_allowed_cidr] : [var.sg_ingress_cidr]
     }
   }
- 
+
   egress {
     from_port        = 0
     to_port          = 0
@@ -38,10 +38,10 @@ resource "aws_security_group" "sg_public_instance" {
 resource "aws_security_group" "rds_sg" {
   name        = "rds-${local.sufix}"
   description = "RDS Security Group"
-  vpc_id            = var.vpc_id 
-  
+  vpc_id      = var.vpc_id
+
   ingress {
-    from_port   = 5432  
+    from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
     cidr_blocks = [var.rds_access_cidr]

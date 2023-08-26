@@ -37,12 +37,12 @@ module "compute" {
 module "ecs" {
   source = "./modules/ecs"
 
-  cluster_name          = "arroyo-cluster"
+  cluster_name          = "arroyo-cluster-v1"
   task_name             = "web-task"
   service_name          = "web-service"
   public_subnet_id      = module.vpc.public_subnet_id
   sg_public_instance_id = module.security_group.sg_public_instance_id
-  
+
   db_host     = module.database.db_host
   db_port     = module.database.db_port
   db_username = module.database.db_username
@@ -56,10 +56,10 @@ module "ecs" {
 module "database" {
   source = "./modules/database"
 
-  vpc_id            = module.vpc.vpc_id 
-  rds_access_cidr   = var.rds_access_cidr
-  rds_password      = var.rds_password
-  private_subnet_id = module.vpc.private_subnet_ids
+  vpc_id                = module.vpc.vpc_id
+  rds_access_cidr       = var.rds_access_cidr
+  rds_password          = var.rds_password
+  private_subnet_id     = module.vpc.private_subnet_ids
   rds_security_group_id = module.security_group.rds_sg_id
 
   tags = var.tags
