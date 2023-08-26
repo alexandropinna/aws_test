@@ -35,8 +35,8 @@ resource "aws_ecs_task_definition" "arroyo-prueba_tec" {
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
 
   container_definitions = jsonencode([{
-    name  = "arroyo-prueba-tec"
-    image = "alex919090/arroyo-prueba-tec:latest"
+    name  = "arroyo-prueba-prueba"
+    image = "alex919090/arroyo-prueba-prueba:latest"
     portMappings = [{
       containerPort = 80
       hostPort      = 80
