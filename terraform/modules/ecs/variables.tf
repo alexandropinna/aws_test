@@ -27,3 +27,26 @@ variable "tags" {
   description = "Tags del proyecto"
   type        = map(string)
 }
+
+# variables para RDS
+
+variable "db_host" {
+  description = "La dirección de conexión para la base de datos RDS"
+  type        = string
+}
+
+variable "db_port" {
+  description = "El puerto para la base de datos RDS"
+  type        = string
+}
+
+variable "db_username" {
+  description = "El nombre de usuario para la base de datos RDS"
+  type        = string
+}
+
+variable "db_password" {
+  description = "La contraseña para la base de datos RDS. ¡Manejar con cuidado!"
+  type        = string
+  sensitive   = true
+}

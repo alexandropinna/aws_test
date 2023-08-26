@@ -41,6 +41,25 @@ resource "aws_ecs_task_definition" "arroyo-prueba_tec" {
       containerPort = 80
       hostPort      = 80
     }]
+
+    environment = [
+      {
+        name = "DB_HOST",
+        value = var.db_host
+      },
+      {
+        name = "DB_PORT",
+        value = var.db_port
+      },
+      {
+        name = "DB_USER",
+        value = var.db_username
+      },
+      {
+        name = "DB_PASS",
+        value = var.db_password
+      }
+    ]
   }])
 }
 

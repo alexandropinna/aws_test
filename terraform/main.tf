@@ -42,6 +42,11 @@ module "ecs" {
   service_name          = "web-service"
   public_subnet_id      = module.vpc.public_subnet_id
   sg_public_instance_id = module.security_group.sg_public_instance_id
+  
+  db_host     = module.database.db_host
+  db_port     = module.database.db_port
+  db_username = module.database.db_username
+  db_password = module.database.db_password
 
   tags = var.tags
 }
