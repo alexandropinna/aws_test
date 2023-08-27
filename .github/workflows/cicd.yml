@@ -50,4 +50,4 @@ jobs:
 
       - name: Deploy to ECS
         run: |
-          aws ecs update-service --cluster arroyo-cluster --service web-service --force-new-deployment
+          aws ecs update-service --cluster arroyo-cluster-v1 --service web-service --force-new-deployment
