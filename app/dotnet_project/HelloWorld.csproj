@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>HelloWorld</AssemblyName> <!-- Esto hace que la DLL se llame HelloWorld.dll -->
+  </PropertyGroup>
+</Project>
