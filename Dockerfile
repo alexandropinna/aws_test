@@ -73,4 +73,4 @@ EXPOSE 80 5432 81 82 83
 # ---- Fase de Comando de Inicio ----
 
 # Comando para iniciar PostgreSQL, Apache y ejecutar el script
-CMD service postgresql start && apachectl -D FOREGROUND && ./start-apps.sh
+CMD ./start-apps.sh
