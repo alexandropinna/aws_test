@@ -49,7 +49,7 @@ RUN apt-get install -y apache2 \
 EXPOSE 80 5432
 
 # Comando para iniciar Apache y mantener el contenedor en funcionamiento
-# CMD service postgresql start && apachectl -D FOREGROUND
+CMD service postgresql start && apachectl -D FOREGROUND
 
 # Comando para iniciar Apache, PostgreSQL y ejecutar el script de inicialización
-CMD service postgresql start && /init-db.sh && apachectl -D FOREGROUND
+# CMD service postgresql start && /init-db.sh && apachectl -D FOREGROUND
