@@ -77,5 +77,4 @@ EXPOSE 80 5432 81 82 83
 # ---- Fase de Comando de Inicio ----
 
 # Comando para iniciar PostgreSQL, Apache y ejecutar el script
-# CMD ./start-apps.sh
 CMD [ "/bin/sh", "-c", "/usr/src/app/start-apps.sh" ]
