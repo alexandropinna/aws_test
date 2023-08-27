@@ -43,6 +43,10 @@ RUN dotnet --info
 
 # ---- Fase de Configuración ----
 
+# Instalar Apache y crear un archivo index.html con 'Hola Mundo'
+RUN apt-get install -y apache2 \
+    && echo '<h1>Hola Mundo Apache</h1>' > /var/www/html/index.html
+
 # Copiar el script de inicio y dar permisos de ejecución
 COPY ./start-apps.sh /usr/src/app/start-apps.sh
 RUN chmod +x /usr/src/app/start-apps.sh
