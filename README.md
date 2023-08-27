@@ -14,7 +14,7 @@ Este proyecto está diseñado como una solución integral para desplegar aplicac
 
 Estas herramientas no solo son robustas, sino que también son altamente compatibles entre sí, lo que hace que la integración sea fluida y eficiente.
 
-![Arquitectura del Proyecto](url-de-la-imagen-de-arquitectura)
+![Arquitectura del Proyecto](https://drive.google.com/file/d/18jvz0-v1r-B40bUAoeJxC0gS7HBLfBYq/view?usp=sharing)
 
 ## Índice
 
