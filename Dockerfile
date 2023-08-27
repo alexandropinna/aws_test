@@ -38,7 +38,7 @@ RUN repo_version=$(lsb_release -r -s || grep -oP '(?<=^VERSION_ID=).+' /etc/os-r
     && apt-get install -y dotnet-sdk-6.0
 
 # Verificar la instalación de .NET
-RUN dotnet --info
+# RUN dotnet --info
 
 # ---- Fase de Configuración ----
 
@@ -59,7 +59,7 @@ RUN mvn clean package
 
 # Compilar la aplicación .NET
 WORKDIR /usr/src/app/dotnet_project
-RUN dotnet build -c Release
+# RUN dotnet build -c Release
 
 # Cambiar al directorio de trabajo original
 WORKDIR /usr/src/app
