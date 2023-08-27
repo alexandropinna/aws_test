@@ -43,8 +43,53 @@ RUN repo_version=$(lsb_release -r -s || grep -oP '(?<=^VERSION_ID=).+' /etc/os-r
 RUN apt-get install -y apache2 \
     && echo '<h1>Hola Mundo</h1>' > /var/www/html/index.html
 
+# Copiar la carpeta 'app' al directorio /usr/src/app dentro de la imagen
+COPY ./app /usr/src/app
+
+# Compilar y 
+WORKDIR /usr/src/app/java_project
+RUN mvn clean package
+
+# Copiar la carpeta 'maven_project' al directorio /usr/src/app/maven_project dentro de la imagen
+COPY ./app/maven_project /usr/src/app/maven_project
+
+# Copiar el script de inicio al directorio /usr/src/app dentro de la imagen
+COPY ./start-apps.sh /usr/src/app/start-apps.sh
+
+# Dar permisos de ejecución al script
+RUN chmod +x /usr/src/app/start-apps.sh
+
+# Compilar y ejecutar el proyecto Maven
+WORKDIR /usr/src/app/maven_project
+RUN mvn clean package
+
+
+# Cambiar al directorio de trabajo original y ejecutar el script
+WORKDIR /usr/src/app
+CMD ["./start-apps.sh"]
+
+
+# Copiar la carpeta 'net_project' al directorio /usr/src/app/net_project dentro de la imagen
+COPY ./app/net_project /usr/src/app/net_project
+# Cambiar al directorio de trabajo para el proyecto .NET
+WORKDIR /usr/src/app/net_project
+# Compilar la aplicación
+RUN dotnet build -c Release
+# Cambiar al directorio de trabajo original y añadir el comando para ejecutar la aplicación .NET
+WORKDIR /usr/src/app
+
+
 # Exponer puertos para Apache y PostgreSQL
 EXPOSE 80 5432
+
+# Ejecuta el proyecto Java
+CMD ["java", "-jar", "target/helloworld-1.0-SNAPSHOT.jar"]
+# Exponer el puerto 81 para Java
+EXPOSE 81
+# Exponer el puerto 82 para Maven
+EXPOSE 82
+# Exponer el puerto 83 para la aplicación .NET
+EXPOSE 83
 
 # Comando para iniciar PostgreSQL y Apache al arrancar el contenedor
 CMD service postgresql start && apachectl -D FOREGROUND
