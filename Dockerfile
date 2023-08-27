@@ -60,7 +60,7 @@ RUN mvn clean package
 
 # Compilar la aplicación .NET
 WORKDIR /usr/src/app/dotnet_project
-# RUN dotnet build -c Release
+RUN dotnet build -c Release
 
 # Cambiar al directorio de trabajo original
 WORKDIR /usr/src/app
