@@ -111,12 +111,61 @@ Dentro de la carpeta `net_project`, se encuentra un proyecto .NET que muestra "H
 
 ## Uso
 
-Siga estos pasos para implementar la solución:
+### Paso 0: Configurar Variables de Terraform
 
-1. Clona este repositorio.
-2. Configura tus credenciales de AWS.
-3. Ejecuta `terraform init` y `terraform apply`.
-4. Haz un push al repositorio para desencadenar el flujo de trabajo de GitHub Actions.
+Antes de desplegar la infraestructura con Terraform, es necesario configurar ciertas variables que son específicas para tu entorno. En este repositorio, encontrarás un archivo `tfvars.example` que contiene un ejemplo de las variables que necesitas configurar.
+
+#### ¿Cómo usar tfvars.example?
+
+1. **Renombrar el Archivo**: Copia el archivo `tfvars.example` y renómbralo a `terraform.tfvars`.
+
+    ```bash
+    cp tfvars.example terraform.tfvars
+    ```
+
+2. **Editar Variables**: Abre `terraform.tfvars` con un editor de texto y modifica las variables según tus necesidades. Por ejemplo, reemplaza los valores de CIDR, subnets y otros según tu configuración de AWS.
+
+    ```bash
+    virginia_cidr = "tu_valor_cidr_aquí"
+    subnets = ["tu_valor_subnet_1_aquí", "tu_valor_subnet_2_aquí"]
+    ```
+
+    Y así sucesivamente para todas las variables listadas en `terraform.tfvars`.
+
+3. **Guardar y Cerrar**: Una vez que hayas terminado de editar las variables, guarda y cierra el archivo.
+
+Con estos pasos, tu archivo `terraform.tfvars` estará listo para ser utilizado por Terraform para desplegar la infraestructura.
+
+### Paso 1: Clonar el Repositorio
+
+Clona este repositorio en tu máquina local.
+
+```bash
+git clone url_del_repositorio
+```
+
+### Paso 2: Configurar Credenciales de AWS
+
+Asegúrate de que tus credenciales de AWS estén configuradas correctamente.
+
+### Paso 3: Inicializar y Aplicar Terraform
+
+Inicializa Terraform y aplica la configuración.
+
+```bash
+terraform init
+terraform apply
+```
+
+### Paso 4: Desencadenar GitHub Actions
+
+Realiza un push al repositorio para desencadenar el flujo de trabajo de GitHub Actions.
+
+```bash
+git add .
+git commit -m "Mensaje del commit"
+git push origin main
+```
 
 ## Autor
 
