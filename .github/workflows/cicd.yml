@@ -1,46 +1,59 @@
+# Nombre del flujo de trabajo
 name: Continuous Deployment
 
+# Evento que dispara el flujo de trabajo: push a la rama 'main'
 on:
   push:
     branches:
       - main
 
+# Trabajos que se ejecutan
 jobs:
+  # Primer trabajo: Construir y empujar la imagen Docker
   build-and-push:
+    # Ejecutar en la última versión de Ubuntu
     runs-on: ubuntu-latest
 
     steps:
+      # Paso 1: Obtener el código del repositorio
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Paso 2: Iniciar sesión en Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      # Paso 3: Construir la imagen Docker
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }} .
 
+      # Paso 4: Etiquetar la imagen Docker
       - name: Tag Docker image
         run: docker tag ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }} ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }}:latest
 
+      # Paso 5: Empujar la imagen Docker a Docker Hub
       - name: Push Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }}:latest
-
   
+  # Segundo trabajo: Desplegar en ECS
   deploy:
+    # Este trabajo necesita que se complete el trabajo build-and-push
     needs: build-and-push 
     runs-on: ubuntu-latest
 
     steps:
+      # Paso 1: Obtener el código del repositorio
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Paso 2: Configurar credenciales de AWS
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -48,6 +61,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      # Paso 3: Desplegar en ECS
       - name: Deploy to ECS
         run: |
           aws ecs update-service --cluster arroyo-cluster-v1 --service web-service --force-new-deployment
