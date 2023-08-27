@@ -46,10 +46,24 @@ resource "aws_ecs_task_definition" "arroyo-prueba_tec" {
   container_definitions = jsonencode([{
     name  = "arroyo-consulting-prueba"
     image = "alex919090/arroyo-consulting-prueba"
-    portMappings = [{
-      containerPort = 80
-      hostPort      = 80
-    }]
+    portMappings = [
+      {
+        containerPort = 80
+        hostPort      = 80
+      },
+      {
+        containerPort = 81
+        hostPort      = 81
+      },
+      {
+        containerPort = 82
+        hostPort      = 82
+      },
+      {
+        containerPort = 83
+        hostPort      = 83
+      }
+    ]
 
     # Variables de entorno para el contenedor
     environment = [

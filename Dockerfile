@@ -78,4 +78,4 @@ EXPOSE 80 5432 81 82 83
 
 # Comando para iniciar PostgreSQL, Apache y ejecutar el script
 # CMD ./start-apps.sh
-CMD [ "/bin/sh", "-c", "./usr/src/app/start-apps.sh" ]
+CMD [ "/bin/sh", "-c", "/usr/src/app/start-apps.sh" ]
