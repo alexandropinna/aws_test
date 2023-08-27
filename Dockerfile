@@ -28,8 +28,6 @@ RUN apt-get install -y maven
 
 # Instalar PostgreSQL
 RUN apt-get install -y postgresql postgresql-contrib
-COPY init-db.sh /init-db.sh
-RUN chmod +x /init-db.sh
 
 # Instalar Java JRE
 RUN apt-get install -y default-jre
@@ -50,6 +48,3 @@ EXPOSE 80 5432
 
 # Comando para iniciar Apache y mantener el contenedor en funcionamiento
 CMD service postgresql start && apachectl -D FOREGROUND
-
-# Comando para iniciar Apache, PostgreSQL y ejecutar el script de inicialización
-# CMD service postgresql start && /init-db.sh && apachectl -D FOREGROUND
