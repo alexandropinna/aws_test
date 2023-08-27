@@ -32,7 +32,8 @@ RUN repo_version=$(lsb_release -r -s || grep -oP '(?<=^VERSION_ID=).+' /etc/os-r
     && wget https://packages.microsoft.com/config/ubuntu/$repo_version/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
     && dpkg -i packages-microsoft-prod.deb \
     && rm packages-microsoft-prod.deb \
-    && apt-get update 
+    && apt-get update \
+    && apt-get install -y dotnet-sdk-6.0
 
 # ---- Fase de Configuración ----
 
@@ -54,8 +55,7 @@ RUN mvn clean package
 
 # Compilar la aplicación .NET
 WORKDIR /usr/src/app/dotnet_project
-RUN apt-get install -y dotnet-sdk-6.0
-# RUN dotnet build -c Release
+RUN dotnet build -c Release
 
 # Cambiar al directorio de trabajo original y ejecutar el script
 WORKDIR /usr/src/app
