@@ -1,3 +1,4 @@
+#!/bin/bash
 # Este script inicia varios servicios, incluidos servidores Java, Maven, .NET, Apache y PostgreSQL.
 
 # --- Inicio de Servicios Individuales ---
