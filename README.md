@@ -111,7 +111,16 @@ Dentro de la carpeta `net_project`, se encuentra un proyecto .NET que muestra "H
 
 ## Uso
 
-### Paso 0: Configurar Variables de Terraform
+### Paso 0: Clonar el Repositorio
+
+Clona este repositorio en tu máquina local.
+
+```bash
+git clone url_del_repositorio
+```
+
+
+### Paso 1: Configurar Variables de Terraform
 
 Antes de desplegar la infraestructura con Terraform, es necesario configurar ciertas variables que son específicas para tu entorno. En este repositorio, encontrarás un archivo `tfvars.example` que contiene un ejemplo de las variables que necesitas configurar.
 
@@ -135,14 +144,6 @@ Antes de desplegar la infraestructura con Terraform, es necesario configurar cie
 3. **Guardar y Cerrar**: Una vez que hayas terminado de editar las variables, guarda y cierra el archivo.
 
 Con estos pasos, tu archivo `terraform.tfvars` estará listo para ser utilizado por Terraform para desplegar la infraestructura.
-
-### Paso 1: Clonar el Repositorio
-
-Clona este repositorio en tu máquina local.
-
-```bash
-git clone url_del_repositorio
-```
 
 ### Paso 2: Configurar Credenciales de AWS
 
