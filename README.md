@@ -94,6 +94,21 @@ El `Dockerfile` en este proyecto está configurado para crear una imagen Docker 
 
 Esta imagen de Docker es una solución integral para los desarrolladores, eliminando la necesidad de instalar y configurar múltiples herramientas y servicios manualmente.
 
+### Proyectos de Ejemplo en el Contenedor
+
+#### Java - Puerto 81
+
+Dentro de la carpeta `java_project`, se encuentra un archivo `Main.java` que muestra "Hola Mundo Java" cuando se accede al puerto 81 del contenedor.
+
+#### Maven - Puerto 82
+
+Dentro de la carpeta `maven_project`, se encuentra un proyecto Maven básico que muestra "Hola Mundo Maven" cuando se accede al puerto 82 del contenedor.
+
+#### .NET - Puerto 83
+
+Dentro de la carpeta `net_project`, se encuentra un proyecto .NET que muestra "Hola Mundo .NET" cuando se accede al puerto 83 del contenedor.
+
+
 ## Uso
 
 Siga estos pasos para implementar la solución:
