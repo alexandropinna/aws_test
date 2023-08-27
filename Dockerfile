@@ -29,16 +29,17 @@ RUN wget  -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor
     && apt-get update \
     && apt-get install -y code
 
+# Instalar apt-transport-https y agregar el pin de prioridad
+RUN apt-get install -y apt-transport-https && \
+    echo 'Package: *\nPin: origin "packages.microsoft.com"\nPin-Priority: 1001' > /etc/apt/preferences.d/99microsoft-dotnet.pref
+
 # Instalar .NET Core SDK
-RUN repo_version=$(lsb_release -r -s || grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"') \
-    && wget https://packages.microsoft.com/config/ubuntu/$repo_version/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
-    && dpkg -i packages-microsoft-prod.deb \
-    && rm packages-microsoft-prod.deb \
-    && apt-get update \
-    && apt-get install -y dotnet-sdk-6.0
+RUN apt-get update && \
+    apt-get install -y dotnet-sdk-6.0
+
 
 # Verificar la instalación de .NET
-# RUN dotnet --info
+RUN dotnet --info
 
 # ---- Fase de Configuración ----
 
