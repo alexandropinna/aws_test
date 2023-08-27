@@ -5,7 +5,7 @@
 
 # Iniciar el servidor Java
 # Se ejecuta en segundo plano y escucha en el puerto 81
-java -jar /usr/src/app/java_project/target/helloworld-1.0-SNAPSHOT.jar &
+java -jar /usr/src/app/java_project/target/helloworld-1.0-SNAPSHOT-jar-with-dependencies.jar &
 
 # Iniciar el servidor Maven
 # Se ejecuta en segundo plano y escucha en el puerto 82
