@@ -116,7 +116,7 @@ Dentro de la carpeta `net_project`, se encuentra un proyecto .NET que muestra "H
 Clona este repositorio en tu máquina local.
 
 ```bash
-git clone url_del_repositorio
+git clone https://github.com/alexandropinna/arroyo-consulting-prueba.git
 ```
 
 
