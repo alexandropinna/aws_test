@@ -54,9 +54,8 @@ RUN mvn clean package
 
 # Compilar la aplicación .NET
 WORKDIR /usr/src/app/dotnet_project
-RUN apt-get install -y dotnet-sdk-6.0 # Ajustar la versión según la necesaria
-
-RUN dotnet build -c Release
+RUN apt-get install -y dotnet-sdk-6.0
+# RUN dotnet build -c Release
 
 # Cambiar al directorio de trabajo original y ejecutar el script
 WORKDIR /usr/src/app
