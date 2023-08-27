@@ -12,14 +12,14 @@ tags = {
   "region"      = "virginia"
 }
 
-sg_ingress_cidr = ""x.x.x.x/x""
+sg_ingress_cidr = "x.x.x.x/x"
 
-rds_access_cidr = ""x.x.x.x/x""
+rds_access_cidr = "x.x.x.x/x"
 
 ec2_specs = {
-  "ami" = "ami-0c1b8b3edc88ba60b" # Debian 11 - docker
+  "ami"             = "ami-0c1b8b3edc88ba60b" # Debian 11 - docker
   # "ami"           = "ami-0f87e58b849e69148" # Alpine - docker
-  "instance_type" = "t2.micro"
+  "instance_type"   = "t2.micro"
 }
 
 ingress_ports_list = [22, 80, 81, 82, 83, 443]
