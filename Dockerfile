@@ -69,10 +69,10 @@ WORKDIR /usr/src/app
 CMD ["./start-apps.sh"]
 
 
-# Copiar la carpeta 'net_project' al directorio /usr/src/app/net_project dentro de la imagen
-COPY ./app/net_project /usr/src/app/net_project
+# Copiar la carpeta 'dotnet_project' al directorio /usr/src/app/dotnet_project dentro de la imagen
+COPY ./app/dotnet_project /usr/src/app/dotnet_project
 # Cambiar al directorio de trabajo para el proyecto .NET
-WORKDIR /usr/src/app/net_project
+WORKDIR /usr/src/app/dotnet_project
 # Compilar la aplicación
 RUN dotnet build -c Release
 # Cambiar al directorio de trabajo original y añadir el comando para ejecutar la aplicación .NET
