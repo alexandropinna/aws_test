@@ -1,98 +1,98 @@
 # Security Group Module
-# Configura las reglas de seguridad de red para permitir/denegar el tráfico.
+# Configures the network security rules to allow/deny traffic.
 module "security_group" {
-  source = "./modules/security_group" # Ruta al módulo de Security Group
+  source = "./modules/security_group" # Path to the Security Group module
 
-  # Lista de puertos para las reglas de entrada
+  # List of ports for inbound rules
   ingress_ports_list = var.ingress_ports_list
-  # CIDR para permitir el tráfico entrante
+  # CIDR to allow incoming traffic
   sg_ingress_cidr = var.sg_ingress_cidr
-  # CIDR para permitir el acceso a RDS
+  # CIDR to allow access to RDS
   rds_access_cidr = var.rds_access_cidr
-  # ID de la VPC donde se creará el grupo de seguridad
+  # ID of the VPC where the security group will be created
   vpc_id = module.vpc.vpc_id
 
-  # Etiquetas para el recurso
+  # Tags for the resource
   tags = var.tags
 }
 
 # VPC Module
-# Configura la VPC (Virtual Private Cloud) y sus recursos asociados.
+# Configures the VPC (Virtual Private Cloud) and its associated resources.
 module "vpc" {
-  source = "./modules/vpc" # Ruta al módulo de VPC
+  source = "./modules/vpc" # Path to the VPC module
 
-  # CIDR de la VPC
+  # VPC CIDR
   virginia_cidr = var.virginia_cidr
-  # Configuración de subredes
+  # Subnet configuration
   subnets = var.subnets
-  # Lista de puertos para las reglas de entrada
+  # List of ports for inbound rules
   ingress_ports_list = var.ingress_ports_list
-  # CIDR para permitir el tráfico entrante
+  # CIDR to allow incoming traffic
   sg_ingress_cidr = var.sg_ingress_cidr
 
-  # Etiquetas para el recurso
+  # Tags for the resource
   tags = var.tags
 }
 
 # EC2 Module
-# Configura las instancias EC2 (Elastic Compute Cloud).
+# Configures the EC2 (Elastic Compute Cloud) instances.
 module "compute" {
-  source = "./modules/compute" # Ruta al módulo de EC2
+  source = "./modules/compute" # Path to the EC2 module
 
-  # Número de instancias y sus especificaciones
+  # Number of instances and their specifications
   instancias = var.instancias
   ec2_specs  = var.ec2_specs
-  # ID de la subred pública
+  # ID of the public subnet
   public_subnet_id = module.vpc.public_subnet_id
-  # Nombre de la clave SSH
+  # SSH key name
   key_name = data.aws_key_pair.key.key_name
-  # ID del grupo de seguridad para instancias públicas
+  # Security group ID for public instances
   public_security_group_id = module.security_group.sg_public_instance_id
 
-  # Etiquetas para el recurso
+  # Tags for the resource
   tags = var.tags
 }
 
 # ECS Module
-# Configura el servicio ECS (Elastic Container Service).
+# Configures the ECS (Elastic Container Service) service.
 module "ecs" {
-  source = "./modules/ecs" # Ruta al módulo de ECS
+  source = "./modules/ecs" # Path to the ECS module
 
-  # Nombre del cluster, tarea y servicio
-  cluster_name = "arroyo-cluster-v1"
+  # Name of the cluster, task, and service
+  cluster_name = "aws-cluster-v1"
   task_name    = "web-task"
   service_name = "web-service"
-  # ID de la subred pública
+  # ID of the public subnet
   public_subnet_id = module.vpc.public_subnet_id
-  # ID del grupo de seguridad para instancias públicas
+  # Security group ID for public instances
   sg_public_instance_id = module.security_group.sg_public_instance_id
 
-  # Detalles de la base de datos
+  # Database details
   db_host     = module.database.db_host
   db_port     = module.database.db_port
   db_username = module.database.db_username
   db_password = module.database.db_password
 
-  # Etiquetas para el recurso
+  # Tags for the resource
   tags = var.tags
 }
 
 # RDS Module
-# Configura la base de datos RDS (Relational Database Service).
+# Configures the RDS (Relational Database Service) database.
 module "database" {
-  source = "./modules/database" # Ruta al módulo de RDS
+  source = "./modules/database" # Path to the RDS module
 
-  # ID de la VPC donde se creará la base de datos
+  # ID of the VPC where the database will be created
   vpc_id = module.vpc.vpc_id
-  # CIDR para permitir el acceso a RDS
+  # CIDR to allow access to RDS
   rds_access_cidr = var.rds_access_cidr
-  # Contraseña de la base de datos
+  # Database password
   rds_password = var.rds_password
-  # ID de las subredes privadas
+  # ID of the private subnets
   private_subnet_id = module.vpc.private_subnet_ids
-  # ID del grupo de seguridad para RDS
+  # Security group ID for RDS
   rds_security_group_id = module.security_group.rds_sg_id
 
-  # Etiquetas para el recurso
+  # Tags for the resource
   tags = var.tags
 }

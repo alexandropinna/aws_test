@@ -1,6 +1,6 @@
-# Recurso de datos para obtener información sobre un par de claves existente en AWS
-# Esto se usa generalmente para acceder a instancias EC2
+# Data resource to fetch information about an existing key pair in AWS
+# This is generally used to access EC2 instances.
 data "aws_key_pair" "key" {
-  # Nombre del par de claves existente en AWS
+  # Name of the existing key pair in AWS
   key_name = "arroyo-key-test"
 }

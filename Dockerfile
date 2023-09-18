@@ -1,15 +1,15 @@
-# Usar Ubuntu como imagen base
+# Use Ubuntu as the base image
 FROM ubuntu:latest
 
-# Metadata: Quién mantiene el Dockerfile
+# Metadata: Who maintains the Dockerfile
 LABEL maintainer="alexander.pinna@protonmail.com"
 
-# Configurar variables de entorno para permitir la instalación no interactiva de paquetes
+# Set environment variables to allow non-interactive package installation
 ENV DEBIAN_FRONTEND=noninteractive
 
-# ---- Fase de Instalación de Dependencias ----
+# ---- Dependency Installation Phase ----
 
-# Actualizar el sistema y descargar utilidades básicas
+# Update the system and download basic utilities
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     wget \
     curl \
@@ -21,7 +21,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     default-jre \
     apache2
 
-# Instalar Visual Studio Code
+# Install Visual Studio Code
 RUN wget  -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg \
     && install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg \
     && sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list' \
@@ -29,52 +29,51 @@ RUN wget  -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor
     && apt-get update \
     && apt-get install -y code
 
-# Instalar apt-transport-https y agregar el pin de prioridad
+# Install apt-transport-https and add priority pin
 RUN apt-get install -y apt-transport-https && \
     echo 'Package: *\nPin: origin "packages.microsoft.com"\nPin-Priority: 1001' > /etc/apt/preferences.d/99microsoft-dotnet.pref
 
-# Instalar .NET Core SDK
+# Install .NET Core SDK
 RUN apt-get update && \
     apt-get install -y dotnet-sdk-6.0
 
-
-# Verificar la instalación de .NET
+# Verify .NET installation
 RUN dotnet --info
 
-# ---- Fase de Configuración ----
+# ---- Configuration Phase ----
 
-# Instalar Apache y crear un archivo index.html con 'Hola Mundo'
+# Install Apache and create an index.html file with 'Hello World'
 RUN apt-get install -y apache2 \
     && echo '<h1>Hola Mundo Apache</h1>' > /var/www/html/index.html
 
-# Copiar el script de inicio y dar permisos de ejecución
+# Copy the startup script and give it execute permissions
 COPY ./start-apps.sh /usr/src/app/start-apps.sh
 RUN chmod +x /usr/src/app/start-apps.sh
 
-# Copiar las carpetas de proyectos
+# Copy project folders
 COPY ./app /usr/src/app
 
-# Compilar el proyecto Java
+# Compile the Java project
 WORKDIR /usr/src/app/java_project
 RUN mvn clean package
 
-# Compilar el proyecto Maven
+# Compile the Maven project
 WORKDIR /usr/src/app/maven_project
 RUN mvn clean package
 
-# Compilar la aplicación .NET
+# Compile the .NET application
 WORKDIR /usr/src/app/dotnet_project
 RUN dotnet publish -c Release -o /app/dotnet_project
 
-# Cambiar al directorio de trabajo original
+# Switch to the original working directory
 WORKDIR /usr/src/app
 
-# ---- Fase de Exposición de Puertos ----
+# ---- Ports Exposure Phase ----
 
-# Exponer puertos para Apache, PostgreSQL, Java, Maven y .NET
+# Expose ports for Apache, PostgreSQL, Java, Maven, and .NET
 EXPOSE 80 5432 81 82 83
 
-# ---- Fase de Comando de Inicio ----
+# ---- Startup Command Phase ----
 
-# Comando para iniciar PostgreSQL, Apache y ejecutar el script
+# Command to start PostgreSQL, Apache, and run the script
 CMD [ "/bin/sh", "-c", "/usr/src/app/start-apps.sh" ]

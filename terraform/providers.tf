@@ -1,31 +1,31 @@
-# Bloque de configuración de Terraform
-# Establece los requisitos para los proveedores y la versión de Terraform.
+# Terraform Configuration Block
+# Sets the requirements for providers and the Terraform version.
 terraform {
-  # Proveedores requeridos y sus versiones
+  # Required providers and their versions
   required_providers {
-    # Proveedor AWS con versión mínima de 5.12.0
+    # AWS provider with a minimum version of 5.12.0
     aws = {
       source  = "hashicorp/aws"
       version = ">=5.12.0"
     }
 
-    # Proveedor Random con versión específica de 3.5.1
+    # Random provider with a specific version of 3.5.1
     random = {
       source  = "hashicorp/random"
       version = "3.5.1"
     }
   }
 
-  # Versión requerida de Terraform, compatible con la versión 1.5.0
+  # Required version of Terraform, compatible with version 1.5.0
   required_version = "~>1.5.0"
 }
 
-# Configuración del proveedor AWS
+# AWS Provider Configuration
 provider "aws" {
-  # Región donde se desplegarán los recursos
+  # Region where the resources will be deployed
   region = "us-east-1"
 
-  # Etiquetas predeterminadas para todos los recursos creados
+  # Default tags for all created resources
   default_tags {
     tags = var.tags
   }

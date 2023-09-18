@@ -1,11 +1,11 @@
-# --- IAM Role para la ejecución de ECS (Elastic Container Service) ---
+# --- IAM Role for ECS (Elastic Container Service) Execution ---
 
-# Crear un rol IAM para la ejecución de ECS
+# Create an IAM role for ECS execution
 resource "aws_iam_role" "ecs_execution_role" {
-  # Nombre del rol
+  # Role name
   name = "ecs_execution_role"
 
-  # Política para asumir el rol
+  # Policy to assume the role
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -20,21 +20,21 @@ resource "aws_iam_role" "ecs_execution_role" {
   })
 }
 
-# Asociar una política predefinida de AWS al rol de ECS
+# Associate a predefined AWS policy to the ECS role
 resource "aws_iam_role_policy_attachment" "ecs_execution_role_policy_attachment" {
   role       = aws_iam_role.ecs_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
-# --- Recursos para ECS (Elastic Container Service) ---
+# --- Resources for ECS (Elastic Container Service) ---
 
-# Crear un cluster ECS
+# Create an ECS cluster
 resource "aws_ecs_cluster" "ecs_cluster" {
   name = var.cluster_name
 }
 
-# Definir la tarea ECS
-resource "aws_ecs_task_definition" "arroyo-prueba_tec" {
+# Define the ECS task
+resource "aws_ecs_task_definition" "ecs_tec" {
   family                   = var.task_name
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -42,10 +42,10 @@ resource "aws_ecs_task_definition" "arroyo-prueba_tec" {
   memory                   = "512"
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
 
-  # Definiciones del contenedor
+  # Container definitions
   container_definitions = jsonencode([{
-    name  = "arroyo-consulting-prueba"
-    image = "alex919090/arroyo-consulting-prueba"
+    name  = "aws_image"
+    image = "alex919090/aws_image"
     portMappings = [
       {
         containerPort = 80
@@ -65,7 +65,7 @@ resource "aws_ecs_task_definition" "arroyo-prueba_tec" {
       }
     ]
 
-    # Variables de entorno para el contenedor
+    # Environment variables for the container
     environment = [
       {
         name  = "DB_HOST",
@@ -87,20 +87,20 @@ resource "aws_ecs_task_definition" "arroyo-prueba_tec" {
   }])
 }
 
-# Crear el servicio ECS
+# Create the ECS service
 resource "aws_ecs_service" "nginx_service" {
   name            = var.service_name
   cluster         = aws_ecs_cluster.ecs_cluster.id
-  task_definition = aws_ecs_task_definition.arroyo-prueba_tec.arn
+  task_definition = aws_ecs_task_definition.ecs_tec.arn
   launch_type     = "FARGATE"
 
-  # Configuración de red para el servicio ECS
+  # Network configuration for the ECS service
   network_configuration {
     subnets          = [var.public_subnet_id]
     security_groups  = [var.sg_public_instance_id]
     assign_public_ip = true
   }
 
-  # Número deseado de instancias de la tarea
+  # Desired number of task instances
   desired_count = 1
 }

@@ -1,41 +1,41 @@
-# --- Variables para Instancias Públicas y Grupos de Seguridad ---
+# --- Variables for Public Instances and Security Groups ---
 
-# Lista de puertos que se permitirán en las reglas de entrada del grupo de seguridad
+# List of ports that will be allowed in the ingress rules of the security group
 variable "ingress_ports_list" {
-  description = "Lista de puertos de ingress"
+  description = "List of ingress ports"
   type        = list(number)
 }
 
-# Bloque CIDR que se permitirá en las reglas de entrada del grupo de seguridad
+# CIDR block that will be allowed in the ingress rules of the security group
 variable "sg_ingress_cidr" {
-  description = "CIDR para trafico de ingress"
+  description = "CIDR for ingress traffic"
   type        = string
 }
 
-# Bloque CIDR que se permitirá en las reglas de entrada del grupo de seguridad de RDS
+# CIDR block that will be allowed in the ingress rules of the RDS security group
 variable "rds_access_cidr" {
-  description = "CIDR para RDS"
+  description = "CIDR for RDS"
   type        = string
 }
 
-# ID de la VPC en la que se crearán las instancias y grupos de seguridad
+# ID of the VPC where instances and security groups will be created
 variable "vpc_id" {
-  description = "ID para la VPC"
+  description = "ID for the VPC"
   type        = string
 }
 
-# Bloque CIDR que se permitirá para el tráfico SSH
-# Por defecto se permite todo el tráfico (0.0.0.0/0)
+# CIDR block that will be allowed for SSH traffic
+# By default, all traffic is allowed (0.0.0.0/0)
 variable "ssh_allowed_cidr" {
-  description = "Bloque CIDR permitido para SSH"
+  description = "Allowed CIDR block for SSH"
   type        = string
   default     = "0.0.0.0/0"
 }
 
-# --- Variables globales para etiquetas (tags) ---
+# --- Global Variables for Tags (tags) ---
 
-# Etiquetas generales para todos los recursos del proyecto
+# General tags for all resources in the project
 variable "tags" {
-  description = "Tags del proyecto"
+  description = "Project tags"
   type        = map(string)
 }

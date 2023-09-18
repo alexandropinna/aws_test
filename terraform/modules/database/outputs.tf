@@ -1,33 +1,33 @@
-# --- Salidas para la base de datos RDS (Relational Database Service) ---
+# --- Outputs for the RDS (Relational Database Service) database ---
 
-# Dirección de conexión para la base de datos RDS
+# Connection address for the RDS database
 output "db_host" {
   value       = aws_db_instance.my_rds.endpoint
-  description = "La dirección de conexión para la base de datos RDS"
+  description = "The connection address for the RDS database"
 }
 
-# Puerto de conexión para la base de datos RDS
+# Connection port for the RDS database
 output "db_port" {
   value       = aws_db_instance.my_rds.port
-  description = "El puerto para la base de datos RDS"
+  description = "The port for the RDS database"
 }
 
-# Nombre de usuario para acceder a la base de datos RDS
+# Username for accessing the RDS database
 output "db_username" {
   value       = aws_db_instance.my_rds.username
-  description = "El nombre de usuario para la base de datos RDS"
+  description = "The username for the RDS database"
 }
 
-# Contraseña para acceder a la base de datos RDS
-# Marcada como sensible para evitar su exposición accidental
+# Password for accessing the RDS database
+# Marked as sensitive to prevent accidental exposure
 output "db_password" {
   value       = var.rds_password
-  description = "La contraseña para la base de datos RDS. ¡Manejar con cuidado!"
+  description = "The password for the RDS database. Handle with care!"
   sensitive   = true
 }
 
-# Nombre del grupo de subredes asociado a la base de datos RDS
+# Name of the subnet group associated with the RDS database
 output "db_subnet_group" {
   value       = aws_db_subnet_group.my_db_subnet_group.name
-  description = "El nombre del grupo de subredes de la base de datos RDS"
+  description = "The name of the subnet group for the RDS database"
 }

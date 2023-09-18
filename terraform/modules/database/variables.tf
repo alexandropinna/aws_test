@@ -1,39 +1,39 @@
-# --- Variables para la base de datos RDS (Relational Database Service) ---
+# --- Variables for the RDS (Relational Database Service) database ---
 
-# ID de la VPC en la que se lanzará la instancia de la base de datos RDS
+# ID of the VPC where the RDS database instance will be launched
 variable "vpc_id" {
-  description = "El ID de la VPC donde se lanzará la instancia RDS"
+  description = "The ID of the VPC where the RDS instance will be launched"
   type        = string
 }
 
-# Bloque CIDR que tiene permitido acceder a la base de datos RDS
+# CIDR block that is allowed to access the RDS database
 variable "rds_access_cidr" {
-  description = "Bloque CIDR que tiene permitido acceder a la base de datos RDS"
+  description = "CIDR block that is allowed to access the RDS database"
   type        = string
 }
 
-# Contraseña para el usuario de la base de datos RDS
+# Password for the RDS database user
 variable "rds_password" {
-  description = "Contraseña para el usuario de la base de datos RDS"
+  description = "Password for the RDS database user"
   type        = string
 }
 
-# IDs de las subredes privadas en las que se lanzará la base de datos RDS
+# IDs of the private subnets where the RDS database will be launched
 variable "private_subnet_id" {
-  description = "Nombre del grupo de subredes de la base de datos RDS"
+  description = "Name of the subnet group for the RDS database"
   type        = list(string)
 }
 
-# ID del grupo de seguridad que se asociará a la instancia de la base de datos RDS
+# ID of the security group that will be associated with the RDS database instance
 variable "rds_security_group_id" {
   description = "The ID of the security group to associate with the RDS instance"
   type        = string
 }
 
-# --- Variables globales para etiquetas (tags) ---
+# --- Global variables for tags ---
 
-# Etiquetas generales para todos los recursos del proyecto
+# General tags for all project resources
 variable "tags" {
-  description = "Tags del proyecto"
+  description = "Project tags"
   type        = map(string)
 }

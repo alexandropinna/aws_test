@@ -1,62 +1,62 @@
-# --- Variables para la VPC (Virtual Private Cloud) ---
+# --- Variables for the VPC (Virtual Private Cloud) ---
 
-# CIDR de la VPC en la región de Virginia
+# CIDR of the VPC in the Virginia region
 variable "virginia_cidr" {
-  description = "CIDR Virginia"
+  description = "Virginia CIDR"
   type        = string
 }
 
-# Lista de subredes para la VPC
+# List of subnets for the VPC
 variable "subnets" {
-  description = "Lista de subnets"
+  description = "List of subnets"
   type        = list(string)
 }
 
-# Lista de puertos para las reglas de tráfico entrante (ingress)
+# List of ports for incoming traffic rules (ingress)
 variable "ingress_ports_list" {
-  description = "Lista de puertos de ingress"
+  description = "List of ingress ports"
   type        = list(number)
 }
 
-# CIDR para el tráfico entrante (ingress) a la VPC
+# CIDR for incoming traffic (ingress) to the VPC
 variable "sg_ingress_cidr" {
   description = "CIDR for ingress traffic"
   type        = string
 }
 
-# --- Variables para las instancias EC2 (Elastic Compute Cloud) ---
+# --- Variables for EC2 (Elastic Compute Cloud) instances ---
 
-# Especificaciones de la instancia EC2 como tipo, tamaño del disco, etc.
+# Specifications for the EC2 instance such as type, disk size, etc.
 variable "ec2_specs" {
-  description = "Parametros de la instancia"
+  description = "Instance parameters"
   type        = map(string)
 }
 
-# Conjunto de nombres para las instancias EC2
+# Set of names for the EC2 instances
 variable "instancias" {
   type        = set(string)
   default     = ["apache"]
-  description = "Nombre de las instancias"
+  description = "Names of the instances"
 }
 
-# --- Variables para la base de datos RDS (Relational Database Service) ---
+# --- Variables for the RDS (Relational Database Service) database ---
 
-# Contraseña para el usuario de la base de datos RDS
+# Password for the RDS database user
 variable "rds_password" {
-  description = "Contraseña para el usuario de la base de datos RDS"
+  description = "Password for the RDS database user"
   type        = string
 }
 
-# Bloque CIDR que tiene permitido acceder a la base de datos RDS
+# CIDR block that is allowed to access the RDS database
 variable "rds_access_cidr" {
-  description = "Bloque CIDR que tiene permitido acceder a la base de datos RDS"
+  description = "CIDR block that is allowed to access the RDS database"
   type        = string
 }
 
-# --- Variables globales para etiquetas (tags) ---
+# --- Global variables for tags ---
 
-# Etiquetas generales para todos los recursos del proyecto
+# General tags for all project resources
 variable "tags" {
-  description = "Tags del proyecto"
+  description = "Project tags"
   type        = map(string)
 }

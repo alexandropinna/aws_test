@@ -1,30 +1,30 @@
 #!/bin/bash
-# Este script inicia varios servicios, incluidos servidores Java, Maven, .NET, Apache y PostgreSQL.
+# This script starts multiple services, including Java, Maven, .NET, Apache, and PostgreSQL servers.
 
-# --- Inicio de Servicios Individuales ---
+# --- Starting Individual Services ---
 
-# Iniciar el servidor Java
-# Se ejecuta en segundo plano y escucha en el puerto 81
+# Start the Java server
+# Runs in the background and listens on port 81
 java -jar /usr/src/app/java_project/target/java_project-1.0-SNAPSHOT-jar-with-dependencies.jar &
 
-# Iniciar el servidor Maven
-# Se ejecuta en segundo plano y escucha en el puerto 82
+# Start the Maven server
+# Runs in the background and listens on port 82
 java -jar /usr/src/app/maven_project/target/helloworld-maven-1.0-SNAPSHOT-jar-with-dependencies.jar &
 
-# Iniciar la aplicación .NET
-# Se ejecuta en segundo plano y escucha en el puerto 83
+# Start the .NET application
+# Runs in the background and listens on port 83
 dotnet /app/dotnet_project/HelloWorld.dll &
 
-# Iniciar el servidor web Apache
-# Se ejecuta en segundo plano con la configuración predeterminada
+# Start the Apache web server
+# Runs in the background with the default configuration
 apachectl -D FOREGROUND &
 
-# Iniciar el servidor de base de datos PostgreSQL
-# Se ejecuta en segundo plano con la configuración predeterminada
+# Start the PostgreSQL database server
+# Runs in the background with the default configuration
 service postgresql start &
 
-# --- Mantener el Contenedor en Ejecución ---
+# --- Keeping the Container Running ---
 
-# Mantener el contenedor en ejecución
-# 'tail -f /dev/null' es una forma común de mantener un contenedor Docker en ejecución
+# Keep the container running
+# 'tail -f /dev/null' is a common way to keep a Docker container running
 tail -f /dev/null

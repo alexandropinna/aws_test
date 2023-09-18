@@ -1,27 +1,27 @@
-# Recurso para crear instancias EC2 en AWS
-# Estas instancias están destinadas a ser instancias públicas accesibles desde Internet
+# Resource to create EC2 instances in AWS
+# These instances are intended to be public instances accessible from the Internet
 resource "aws_instance" "public_instance" {
-  # Utiliza `for_each` para crear múltiples instancias basadas en la variable `instancias`
+  # Uses `for_each` to create multiple instances based on the `instancias` variable
   for_each = var.instancias
 
-  # ID de la imagen de la máquina (AMI) para la instancia
-  # En este caso, se usa Debian 11 con Docker preinstalado
+  # ID of the machine image (AMI) for the instance
+  # In this case, Debian 11 with Docker pre-installed is used
   ami = var.ec2_specs.ami
 
-  # Tipo de instancia EC2 (por ejemplo, t2.micro, t3.small, etc.)
+  # Type of EC2 instance (e.g., t2.micro, t3.small, etc.)
   instance_type = var.ec2_specs.instance_type
 
-  # ID de la subred pública donde se lanzará la instancia
+  # ID of the public subnet where the instance will be launched
   subnet_id = var.public_subnet_id
 
-  # Nombre del par de claves para acceder a la instancia
+  # Name of the key pair to access the instance
   key_name = var.key_name
 
-  # IDs de los grupos de seguridad asociados con la instancia
+  # IDs of the security groups associated with the instance
   vpc_security_group_ids = [var.public_security_group_id]
 
-  # Etiquetas para la instancia EC2
-  # El nombre se construye utilizando el valor actual de `for_each` y el sufijo local
+  # Tags for the EC2 instance
+  # The name is constructed using the current value from `for_each` and the local suffix
   tags = {
     "Name" = "${each.value}-${local.sufix}"
   }

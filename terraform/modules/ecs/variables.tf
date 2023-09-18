@@ -1,67 +1,67 @@
-# --- Variables para ECS (Elastic Container Service) ---
+# --- Variables for ECS (Elastic Container Service) ---
 
-# Nombre del cluster ECS
+# Name of the ECS cluster
 variable "cluster_name" {
   description = "Name of the ECS cluster"
   type        = string
 }
 
-# Nombre de la tarea ECS
+# Name of the ECS task
 variable "task_name" {
   description = "Name of the ECS task"
   type        = string
 }
 
-# Nombre del servicio ECS
+# Name of the ECS service
 variable "service_name" {
   description = "Name of the ECS service"
   type        = string
 }
 
-# ID de la subred pública para el servicio ECS
+# ID of the public subnet for the ECS service
 variable "public_subnet_id" {
   description = "ID of the public subnet"
   type        = string
 }
 
-# ID del grupo de seguridad de la instancia pública para el servicio ECS
+# ID of the public instance security group for the ECS service
 variable "sg_public_instance_id" {
   description = "ID of the public instance security group"
   type        = string
 }
 
-# --- Variables globales para etiquetas (tags) ---
+# --- Global variables for tags ---
 
-# Etiquetas generales para todos los recursos del proyecto
+# General tags for all project resources
 variable "tags" {
-  description = "Tags del proyecto"
+  description = "Project tags"
   type        = map(string)
 }
 
-# --- Variables para RDS (Relational Database Service) ---
+# --- Variables for RDS (Relational Database Service) ---
 
-# Dirección del host de la base de datos RDS
+# Host address for the RDS database
 variable "db_host" {
-  description = "La dirección de conexión para la base de datos RDS"
+  description = "The connection address for the RDS database"
   type        = string
 }
 
-# Puerto de la base de datos RDS
+# Port for the RDS database
 variable "db_port" {
-  description = "El puerto para la base de datos RDS"
+  description = "The port for the RDS database"
   type        = string
 }
 
-# Nombre de usuario para la base de datos RDS
+# Username for the RDS database
 variable "db_username" {
-  description = "El nombre de usuario para la base de datos RDS"
+  description = "The username for the RDS database"
   type        = string
 }
 
-# Contraseña para la base de datos RDS
-# Marcada como sensible para evitar su exposición accidental
+# Password for the RDS database
+# Marked as sensitive to prevent accidental exposure
 variable "db_password" {
-  description = "La contraseña para la base de datos RDS. ¡Manejar con cuidado!"
+  description = "The password for the RDS database. Handle with care!"
   type        = string
   sensitive   = true
 }

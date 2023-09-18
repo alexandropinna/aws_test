@@ -1,6 +1,6 @@
 # --- VPC (Virtual Private Cloud) ---
 
-# Crear una VPC en Virginia
+# Create a VPC in Virginia
 resource "aws_vpc" "vpc_virginia" {
   cidr_block = var.virginia_cidr
   tags = {
@@ -8,9 +8,9 @@ resource "aws_vpc" "vpc_virginia" {
   }
 }
 
-# --- Subredes ---
+# --- Subnets ---
 
-# Crear una subred pública en la VPC
+# Create a public subnet in the VPC
 resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.vpc_virginia.id
   cidr_block              = var.subnets[0]
@@ -20,7 +20,7 @@ resource "aws_subnet" "public_subnet" {
   }
 }
 
-# Crear la primera subred para RDS en la VPC
+# Create the first subnet for RDS in the VPC
 resource "aws_subnet" "rds_subnet_1" {
   vpc_id            = aws_vpc.vpc_virginia.id
   cidr_block        = var.subnets[1]
@@ -33,7 +33,7 @@ resource "aws_subnet" "rds_subnet_1" {
   ]
 }
 
-# Crear la segunda subred para RDS en la VPC
+# Create the second subnet for RDS in the VPC
 resource "aws_subnet" "rds_subnet_2" {
   vpc_id            = aws_vpc.vpc_virginia.id
   cidr_block        = var.subnets[2]
@@ -48,7 +48,7 @@ resource "aws_subnet" "rds_subnet_2" {
 
 # --- Internet Gateway ---
 
-# Crear una puerta de enlace a Internet y asociarla a la VPC
+# Create an Internet Gateway and associate it with the VPC
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc_virginia.id
   tags = {
@@ -56,9 +56,9 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-# --- Tablas de Rutas ---
+# --- Route Tables ---
 
-# Crear una tabla de rutas pública para la VPC
+# Create a public route table for the VPC
 resource "aws_route_table" "public_crt" {
   vpc_id = aws_vpc.vpc_virginia.id
   route {
@@ -70,7 +70,7 @@ resource "aws_route_table" "public_crt" {
   }
 }
 
-# Asociar la subred pública con la tabla de rutas pública
+# Associate the public subnet with the public route table
 resource "aws_route_table_association" "crta_public_subnet" {
   subnet_id      = aws_subnet.public_subnet.id
   route_table_id = aws_route_table.public_crt.id

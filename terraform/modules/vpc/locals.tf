@@ -1,7 +1,7 @@
-# Bloque de variables locales
-# Utilizado para definir variables que son locales a este archivo de configuración.
+# Local Variables Block
+# Used to define variables that are local to this configuration file.
 locals {
-  # Sufijo que se compone de las etiquetas del proyecto, entorno y región
-  # Se utilizará para nombrar recursos de manera coherente en todo el proyecto
+  # Suffix composed of the project, environment, and region tags
+  # Will be used for consistently naming resources across the project
   sufix = "${var.tags.project}-${var.tags.env}-${var.tags.region}"
 }

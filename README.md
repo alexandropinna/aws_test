@@ -1,173 +1,171 @@
-# Proyecto de Infraestructura como Código y Despliegue Continuo para Prueba Técnica Arroyo Consulting
+# Infrastructure as Code and Continuous Deployment Project with AWS, Terraform, and GitHub Actions
 
-## Descripción
+## Description
 
-Este proyecto está diseñado como una solución integral para desplegar aplicaciones modernas en la nube. Utiliza Terraform para automatizar la creación y gestión de recursos en AWS, incluyendo EC2 para la computación, RDS para bases de datos y ECS para la orquestación de contenedores.
+This project is designed as an end-to-end solution for deploying modern applications in the cloud. It uses Terraform to automate the creation and management of resources on AWS, including EC2 for computing, RDS for databases, and ECS for container orchestration.
 
-### ¿Por qué EC2, ECS y RDS?
+### Why EC2, ECS, and RDS?
 
-- **EC2 (Elastic Compute Cloud)**: Se utiliza para demostrar la capacidad de conectividad a bases de datos, en este caso, RDS. EC2 nos ofrece flexibilidad y control completo sobre nuestros recursos computacionales, lo que lo convierte en la elección ideal para alojar nuestra aplicación y establecer una conexión segura con la base de datos RDS.
+- **EC2 (Elastic Compute Cloud)**: Used to demonstrate database connectivity capabilities, in this case, to RDS. EC2 offers flexibility and complete control over our computing resources, making it the ideal choice for hosting our application and establishing a secure connection with the RDS database.
 
-- **ECS (Elastic Container Service)**: Este servicio se utiliza para demostrar que el Pipeline de CI/CD, creado utilizando GitHub Actions, funciona como se espera. ECS permite ejecutar aplicaciones en contenedores de una manera altamente escalable y de alto rendimiento, lo cual es especialmente útil para aplicaciones con arquitecturas de microservicios.
+- **ECS (Elastic Container Service)**: This service is used to demonstrate that the CI/CD Pipeline, created using GitHub Actions, works as expected. ECS allows running applications in containers in a highly scalable and high-performance manner, which is especially useful for applications with microservices architectures.
 
-- **RDS (Relational Database Service)**: Ofrece bases de datos relacionales que son fáciles de configurar, operar y escalar. RDS se utiliza aquí como el back-end de datos para nuestra aplicación y es accesible desde la instancia EC2.
+- **RDS (Relational Database Service)**: Provides relational databases that are easy to set up, operate, and scale. RDS is used here as the data back-end for our application and is accessible from the EC2 instance.
 
-Estas herramientas no solo son robustas, sino que también son altamente compatibles entre sí, lo que hace que la integración sea fluida y eficiente.
+These tools are not only robust but also highly compatible with each other, making integration seamless and efficient.
 
-![Arquitectura del Proyecto](./images/arroyoConsultingInfra.png)
+![Project Architecture](./images/Infra.png)
 
-## Índice
+## Table of Contents
 
-- [Requisitos](#requisitos)
-- [Configuración de AWS](#configuración-de-aws)
-- [Configuración de GitHub Actions](#configuración-de-github-actions)
+- [Requirements](#requirements)
+- [AWS Configuration](#aws-configuration)
+- [GitHub Actions Configuration](#github-actions-configuration)
 - [Terraform](#terraform)
 - [Docker](#docker)
-- [Uso](#uso)
-- [Contribuir](#contribuir)
+- [Usage](#usage)
+- [Contribute](#contribute)
 
-## Requisitos
+## Requirements
 
 - Terraform
 - AWS CLI
 - Docker
 - GitHub
 
-## Configuración de AWS
+## AWS Configuration
 
-El proyecto crea varios recursos en AWS, que se detallan en las siguientes secciones.
+The project creates multiple resources on AWS, detailed in the following sections.
 
-## Configuración de GitHub Actions
+## GitHub Actions Configuration
 
-El archivo `.github/workflows/cicd.yml` configura un flujo de trabajo de GitHub Actions para la construcción y despliegue.
+The `.github/workflows/cicd.yml` file configures a GitHub Actions workflow for building and deployment.
 
 ## Terraform
 
-La infraestructura como código se maneja mediante archivos de Terraform.
+Infrastructure as code is managed through Terraform files.
 
-### Variables de Terraform
+### Terraform Variables
 
-Las variables se definen en `variables.tf`.
+Variables are defined in `variables.tf`.
 
-### Salidas de Terraform
+### Terraform Outputs
 
-Las salidas están definidas en `outputs.tf`.
+Outputs are defined in `outputs.tf`.
 
 ## Docker
 
-El `Dockerfile` en este proyecto está configurado para crear una imagen Docker que sirve como un entorno de desarrollo completo. Esta imagen está basada en Ubuntu y viene preconfigurada con una serie de herramientas y servicios que facilitan el desarrollo y la implementación de aplicaciones.
+The `Dockerfile` in this project is set up to create a Docker image that serves as a complete development environment. This image is based on Ubuntu and comes pre-configured with a set of tools and services that facilitate the development and deployment of applications.
 
-#### Lo que hace el Dockerfile:
+#### What the Dockerfile Does:
 
-1. **Utiliza Ubuntu como imagen base**: Este es el sistema operativo en el que se instalarán todas las herramientas y servicios.
+1. **Uses Ubuntu as Base Image**: This is the operating system on which all the tools and services will be installed.
 
-2. **Instala Utilidades Básicas**: Incluye herramientas como `wget`, `curl`, `gnupg`, y `lsb-release` para facilitar la descarga e instalación de paquetes adicionales.
+2. **Installs Basic Utilities**: Includes tools like `wget`, `curl`, `gnupg`, and `lsb-release` to facilitate downloading and installing additional packages.
 
-3. **Instala Git**: Una herramienta esencial para el control de versiones.
+3. **Installs Git**: An essential tool for version control.
 
-4. **Instala Visual Studio Code**: Un editor de código fuente ampliamente utilizado, que será útil para el desarrollo.
+4. **Installs Visual Studio Code**: A widely used source code editor, which will be useful for development.
 
-5. **Instala Maven**: Herramienta de gestión de proyectos y comprensión de software, especialmente útil para proyectos Java.
+5. **Installs Maven**: A project management and comprehension tool, especially useful for Java projects.
 
-6. **Instala PostgreSQL y su contribución**: Una base de datos relacional de código abierto que se utilizará como el sistema de almacenamiento de datos.
+6. **Installs PostgreSQL and its Contribution**: An open-source relational database that will be used as the data storage system.
 
-7. **Instala Java JRE**: El entorno de ejecución de Java, necesario para ejecutar aplicaciones Java.
+7. **Installs Java JRE**: The Java Runtime Environment, necessary for running Java applications.
 
-8. **Instala .NET Core SDK**: El SDK de .NET Core permitirá la compilación y ejecución de proyectos .NET Core.
+8. **Installs .NET Core SDK**: The .NET Core SDK will allow the compilation and running of .NET Core projects.
 
-9. **Instala Apache y muestra un "Hola Mundo"**: Un servidor web Apache se instala y se configura con una página de inicio que muestra "Hola Mundo".
+9. **Installs Apache and Displays "Hello World"**: An Apache web server is installed and configured with a home page displaying "Hello World".
 
-10. **Expone puertos 80 y 5432**: El puerto 80 se expone para el servidor web Apache y el puerto 5432 para PostgreSQL.
+10. **Exposes Ports 80 and 5432**: Port 80 is exposed for the Apache web server and port 5432 for PostgreSQL.
 
-11. **Inicia PostgreSQL y Apache**: Al arrancar el contenedor, se inician automáticamente el servidor web Apache y el servicio de base de datos PostgreSQL.
+11. **Starts PostgreSQL and Apache**: Upon starting the container, both the Apache web server and the PostgreSQL database service are automatically started.
 
-#### Resultados:
+#### Results:
 
-- Se montará la imagen de Docker creada en el servicio de cómputo seleccionado.
-- Podrás usar Git para control de versiones.
-- Podrás editar código con Visual Studio Code.
-- Podrás gestionar proyectos Java con Maven.
-- Tendrás una base de datos PostgreSQL lista para usar.
-- Podrás ejecutar aplicaciones Java gracias al Java JRE instalado.
-- Podrás compilar y ejecutar proyectos .NET Core.
-- Tendrás un servidor Apache funcionando con una página de inicio que muestra "Hola Mundo".
+- The created Docker image will be mounted on the selected compute service.
+- You can use Git for version control.
+- You can edit code with Visual Studio Code.
+- You can manage Java projects with Maven.
+- You will have a ready-to-use PostgreSQL database.
+- You can run Java applications thanks to the installed Java JRE.
+- You can compile and run .NET Core projects.
+- You will have a running Apache server with a home page displaying "Hello World".
 
-Esta imagen de Docker es una solución integral para los desarrolladores, eliminando la necesidad de instalar y configurar múltiples herramientas y servicios manualmente.
+This Docker image is an end-to-end solution for developers, eliminating the need to manually install and configure multiple tools and services.
 
-### Proyectos de Ejemplo en el Contenedor
+### Sample Projects in the Container
 
-#### Java - Puerto 81
+#### Java - Port 81
 
-Dentro de la carpeta `java_project`, se encuentra un archivo `Main.java` que muestra "Hola Mundo Java" cuando se accede al puerto 81 del contenedor.
+Within the `java_project` folder, there is a `Main.java` file that displays "Hello World Java" when accessed on the container's port 81.
 
-#### Maven - Puerto 82
+#### Maven - Port 82
 
-Dentro de la carpeta `maven_project`, se encuentra un proyecto Maven básico que muestra "Hola Mundo Maven" cuando se accede al puerto 82 del contenedor.
+Within the `maven_project` folder, there is a basic Maven project that displays "Hello World Maven" when accessed on the container's port 82.
 
-#### .NET - Puerto 83
+#### .NET - Port 83
 
-Dentro de la carpeta `net_project`, se encuentra un proyecto .NET que muestra "Hola Mundo .NET" cuando se accede al puerto 83 del contenedor.
+Within the `net_project` folder, there is a .NET project that displays "Hello World .NET" when accessed on the container's port 83.
 
+## Usage
 
-## Uso
+### Step 0: Clone the Repository
 
-### Paso 0: Clonar el Repositorio
-
-Clona este repositorio en tu máquina local.
+Clone this repository onto your local machine.
 
 ```bash
 git clone https://github.com/alexandropinna/arroyo-consulting-prueba.git
 ```
 
+### Step 1: Configure Terraform Variables
 
-### Paso 1: Configurar Variables de Terraform
+Before deploying the infrastructure with Terraform, certain variables specific to your environment need to be configured. In this repository, you will find a `tfvars.example` file containing an example of the variables you need to configure.
 
-Antes de desplegar la infraestructura con Terraform, es necesario configurar ciertas variables que son específicas para tu entorno. En este repositorio, encontrarás un archivo `tfvars.example` que contiene un ejemplo de las variables que necesitas configurar.
+#### How to use tfvars.example?
 
-#### ¿Cómo usar tfvars.example?
-
-1. **Renombrar el Archivo**: Copia el archivo `tfvars.example` y renómbralo a `terraform.tfvars`.
+1. **Rename the File**: Copy the `tfvars.example` file and rename it to `terraform.tfvars`.
 
     ```bash
     cp tfvars.example terraform.tfvars
     ```
 
-2. **Editar Variables**: Abre `terraform.tfvars` con un editor de texto y modifica las variables según tus necesidades. Por ejemplo, reemplaza los valores de CIDR, subnets y otros según tu configuración de AWS.
+2. **Edit Variables**: Open `terraform.tfvars` with a text editor and modify the variables as per your needs. For example, replace the values for CIDR, subnets, and others according to your AWS configuration.
 
     ```bash
-    virginia_cidr = "tu_valor_cidr_aquí"
-    subnets = ["tu_valor_subnet_1_aquí", "tu_valor_subnet_2_aquí"]
+    virginia_cidr = "your_cidr_value_here"
+    subnets = ["your_subnet_value_1_here", "your_subnet_value_2_here"]
     ```
 
-    Y así sucesivamente para todas las variables listadas en `terraform.tfvars`.
+    And so on for all the variables listed in `terraform.tfvars`.
 
-3. **Guardar y Cerrar**: Una vez que hayas terminado de editar las variables, guarda y cierra el archivo.
+3. **Save and Close**: Once you have finished editing the variables, save and close the file.
 
-Con estos pasos, tu archivo `terraform.tfvars` estará listo para ser utilizado por Terraform para desplegar la infraestructura.
+With these steps, your `terraform.tfvars` file will be ready to be used by Terraform for deploying the infrastructure.
 
-### Paso 2: Configurar Credenciales de AWS
+### Step 2: Configure AWS Credentials
 
-Asegúrate de que tus credenciales de AWS estén configuradas correctamente.
+Make sure your AWS credentials are correctly configured.
 
-### Paso 3: Inicializar y Aplicar Terraform
+### Step 3: Initialize and Apply Terraform
 
-Inicializa Terraform y aplica la configuración.
+Initialize Terraform and apply the configuration.
 
 ```bash
 terraform init
 terraform apply
 ```
 
-### Paso 4: Desencadenar GitHub Actions
+### Step 4: Trigger GitHub Actions
 
-Realiza un push al repositorio para desencadenar el flujo de trabajo de GitHub Actions.
+Make a push to the repository to trigger the GitHub Actions workflow.
 
 ```bash
 git add .
-git commit -m "Mensaje del commit"
+git commit -m "Commit message"
 git push origin main
 ```
 
-## Autor
+## Author
 
-- Alejandro Piña ([correo electrónico](mailto:alexander.pinna@protonmail.com))
+- Alejandro Piña ([email](mailto:alexander.pinna@protonmail.com))

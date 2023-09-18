@@ -1,33 +1,33 @@
-# --- Variables para VPC y Subredes ---
+# --- Variables for VPC and Subnets ---
 
-# Bloque CIDR para la VPC en la región de Virginia
+# CIDR block for the VPC in the Virginia region
 variable "virginia_cidr" {
-  description = "CIDR Virginia"
+  description = "CIDR for Virginia"
   type        = string
 }
 
-# Lista de bloques CIDR para las subredes dentro de la VPC
+# List of CIDR blocks for the subnets within the VPC
 variable "subnets" {
-  description = "Lista de subnets"
+  description = "List of subnets"
   type        = list(string)
 }
 
-# Lista de puertos que se permitirán en las reglas de entrada del grupo de seguridad
+# List of ports that will be allowed in the security group's inbound rules
 variable "ingress_ports_list" {
-  description = "Lista de puertos de ingress"
+  description = "List of ingress ports"
   type        = list(number)
 }
 
-# Bloque CIDR que se permitirá en las reglas de entrada del grupo de seguridad
+# CIDR block that will be allowed in the security group's inbound rules
 variable "sg_ingress_cidr" {
   description = "CIDR for ingress traffic"
   type        = string
 }
 
-# --- Variables globales para etiquetas (tags) ---
+# --- Global Variables for Tags ---
 
-# Etiquetas generales para todos los recursos del proyecto
+# General tags for all the resources in the project
 variable "tags" {
-  description = "Tags del proyecto"
+  description = "Project tags"
   type        = map(string)
 }

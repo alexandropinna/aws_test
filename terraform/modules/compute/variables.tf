@@ -1,40 +1,40 @@
-# --- Variables para las instancias EC2 (Elastic Compute Cloud) ---
+# --- Variables for EC2 (Elastic Compute Cloud) instances ---
 
-# Mapa de especificaciones para las instancias EC2 como tipo de instancia, tamaño de disco, etc.
+# Map of specifications for EC2 instances such as instance type, disk size, etc.
 variable "ec2_specs" {
-  description = "Parametros de la instancia"
+  description = "Instance parameters"
   type        = map(string)
 }
 
-# Conjunto de nombres para las instancias EC2, por defecto incluye "apache"
+# Set of names for EC2 instances, defaults to include "apache"
 variable "instancias" {
   type        = set(string)
   default     = ["apache"]
-  description = "Nombre de las instancias"
+  description = "Names of the instances"
 }
 
-# ID de la subred pública en la que se lanzarán las instancias EC2
+# ID of the public subnet in which the EC2 instances will be launched
 variable "public_subnet_id" {
-  description = "El ID de la subred pública para usar con las instancias EC2"
+  description = "The ID of the public subnet to use with the EC2 instances"
   type        = string
 }
 
-# ID del grupo de seguridad que se asignará a las instancias EC2 públicas
+# ID of the security group that will be assigned to the public EC2 instances
 variable "public_security_group_id" {
-  description = "ID del Security Group para instancias públicas"
+  description = "Security Group ID for public instances"
   type        = string
 }
 
-# Nombre del par de claves EC2 para acceder a las instancias
+# Name of the EC2 key pair to access the instances
 variable "key_name" {
-  description = "Nombre de la llave EC2"
+  description = "EC2 key pair name"
   type        = string
 }
 
-# --- Variables globales para etiquetas (tags) ---
+# --- Global variables for tags ---
 
-# Etiquetas generales para todos los recursos del proyecto
+# General tags for all project resources
 variable "tags" {
-  description = "Tags del proyecto"
+  description = "Project tags"
   type        = map(string)
 }

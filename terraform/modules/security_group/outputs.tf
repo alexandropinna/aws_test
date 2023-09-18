@@ -1,13 +1,13 @@
-# --- Salidas para los Grupos de Seguridad ---
+# --- Outputs for Security Groups ---
 
-# ID del grupo de seguridad para la base de datos RDS
+# ID of the security group for the RDS database
 output "rds_sg_id" {
   value       = aws_security_group.rds_sg.id
-  description = "El ID del grupo de seguridad para la base de datos RDS"
+  description = "The ID of the security group for the RDS database"
 }
 
-# ID del grupo de seguridad para las instancias públicas
+# ID of the security group for public instances
 output "sg_public_instance_id" {
   value       = aws_security_group.sg_public_instance.id
-  description = "El ID del grupo de seguridad para las instancias públicas"
+  description = "The ID of the security group for public instances"
 }
