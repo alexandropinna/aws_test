@@ -1,7 +1,7 @@
 ---
 # Playbook for installing Docker on Debian servers
 - name: Install Docker on Debian
-  hosts: test-2-aws_test-dev-virginia  # Target host or group in Ansible inventory
+  hosts: all  # Target host or group in Ansible inventory
   become: true  # Uncomment to gain root privileges if needed
 
   vars:
@@ -83,3 +83,9 @@
       ansible.builtin.apt:
         name: "{{ docker_components }}"
         state: present  # Ensure components are installed
+
+    - name: Añadir usuario al grupo Docker
+      ansible.builtin.user:
+        name: admin
+        groups: docker
+        append: true

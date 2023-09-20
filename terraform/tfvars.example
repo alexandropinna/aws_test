@@ -1,6 +1,6 @@
-virginia_cidr = "x.x.x.x/x"
+virginia_cidr = "10.10.0.0/16"
 
-subnets = ["x.x.x.x/x", "x.x.x.x/x", "x.x.x.x/x"]
+subnets = ["10.10.0.0/24", "10.10.1.0/24", "10.10.2.0/24"]
 
 tags = {
   "env"         = "dev"
@@ -8,22 +8,21 @@ tags = {
   "cloud"       = "AWS"
   "IAC"         = "Terraform"
   "IAC_Version" = "1.5.5"
-  "project"     = "nombre-de-proyecto"
+  "project"     = "Project Name"
   "region"      = "virginia"
 }
 
-sg_ingress_cidr = "x.x.x.x/x"
+sg_ingress_cidr = "0.0.0.0/0"
 
-rds_access_cidr = "x.x.x.x/x"
+rds_access_cidr = "0.0.0.0/0"
 
 ec2_specs = {
-  "ami"             = "ami-0c1b8b3edc88ba60b" # Debian 11 - docker
-  # "ami"           = "ami-0f87e58b849e69148" # Alpine - docker
+  "ami" = "ami-06db4d78cb1d3bbf9" # Debian 12 - x86
   "instance_type"   = "t2.micro"
 }
 
-instancias = ["apache","test","test-2"]
+instancias = ["apache","dotnet","java","maven"]
 
-ingress_ports_list = [22, 80, 81, 82, 83, 443]
+ingress_ports_list = [22, 80, 443]
 
 rds_password = "change_password"

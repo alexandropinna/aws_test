@@ -1,21 +1,72 @@
 ---
-- name: Deploy Docker Container
-  hosts: test-2-aws_test-dev-virginia
+- name: Deploy Apache
+  hosts: apache-aws_test-dev-virginia
   become: true
 
   tasks:
     - name: Pull Docker Image
       community.docker.docker_image:
-        name: "alex919090/arroyo-consulting-prueba:latest"
+        name: "alex919090/apache_test:latest"
         source: pull
 
     - name: Run Docker Container
       community.docker.docker_container:
-        name: my_nginx
-        image: alex919090/arroyo-consulting-prueba:latest
+        name: my_apache
+        image: alex919090/apache_test:latest
         state: started
         published_ports:
           - "80:80"
-          - "81:81"
-          - "82:82"
-          - "83:83"
+
+- name: Deploy .NET
+  hosts: dotnet-aws_test-dev-virginia
+  become: true
+
+  tasks:
+    - name: Pull Docker Image
+      community.docker.docker_image:
+        name: "alex919090/dotnet_test:latest"
+        source: pull
+
+    - name: Run Docker Container
+      community.docker.docker_container:
+        name: my_dotnet
+        image: alex919090/dotnet_test:latest
+        state: started
+        published_ports:
+          - "80:80"
+
+- name: Deploy Java
+  hosts: java-aws_test-dev-virginia
+  become: true
+
+  tasks:
+    - name: Pull Docker Image
+      community.docker.docker_image:
+        name: "alex919090/java_test:latest"
+        source: pull
+
+    - name: Run Docker Container
+      community.docker.docker_container:
+        name: my_java
+        image: alex919090/java_test:latest
+        state: started
+        published_ports:
+          - "80:80"
+
+- name: Deploy Maven
+  hosts: maven-aws_test-dev-virginia
+  become: true
+
+  tasks:
+    - name: Pull Docker Image
+      community.docker.docker_image:
+        name: "alex919090/maven_test:latest"
+        source: pull
+
+    - name: Run Docker Container
+      community.docker.docker_container:
+        name: my_maven
+        image: alex919090/maven_test:latest
+        state: started
+        published_ports:
+          - "80:80"
