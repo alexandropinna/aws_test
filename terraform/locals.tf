@@ -12,7 +12,7 @@ locals {
     ${join("\n", [for instance in values(local.ec2_instances) : instance.name])}
   EOT
 
-  ssh_key_path = "/Users/lex/Desktop/DevOps/Code/aws_lex_key.pem"
+  ssh_key_path = "/path/to/the/key.pem"
 
   ec2_host_vars_content = {for instance in values(local.ec2_instances) : instance.name => "ansible_host: ${instance.public_ip}\nansible_user: admin\nansible_ssh_private_key_file: ${local.ssh_key_path}"}
 
