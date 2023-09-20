@@ -22,6 +22,8 @@ ec2_specs = {
   "instance_type"   = "t2.micro"
 }
 
+instancias = ["apache","test","test-2"]
+
 ingress_ports_list = [22, 80, 81, 82, 83, 443]
 
 rds_password = "change_password"
