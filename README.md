@@ -180,6 +180,8 @@ Before deploying the infrastructure with Terraform, you need to configure certai
 
     And so on for all the variables listed in `terraform.tfvars`.
 
+    And don't forget to edit the path of the key that will be used to connect with Ansible in the `locals.tf` file located in the root directory, specifically the "ssh_key_path".
+
 3. **Save and Close**: Once you have finished editing the variables, save and close the file.
 
 With these steps, your `terraform.tfvars` file will be ready to be used by Terraform for deploying the infrastructure.
