@@ -1,0 +1,21 @@
+---
+- name: Deploy Docker Container
+  hosts: test-2-aws_test-dev-virginia
+  become: true
+
+  tasks:
+    - name: Pull Docker Image
+      community.docker.docker_image:
+        name: "alex919090/arroyo-consulting-prueba:latest"
+        source: pull
+
+    - name: Run Docker Container
+      community.docker.docker_container:
+        name: my_nginx
+        image: alex919090/arroyo-consulting-prueba:latest
+        state: started
+        published_ports:
+          - "80:80"
+          - "81:81"
+          - "82:82"
+          - "83:83"

@@ -2,5 +2,5 @@
 # This is generally used to access EC2 instances.
 data "aws_key_pair" "key" {
   # Name of the existing key pair in AWS
-  key_name = "arroyo-key-test"
+  key_name = "aws_lex_key"
 }

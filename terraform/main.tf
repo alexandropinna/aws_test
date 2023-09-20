@@ -53,46 +53,46 @@ module "compute" {
   tags = var.tags
 }
 
-# ECS Module
-# Configures the ECS (Elastic Container Service) service.
-module "ecs" {
-  source = "./modules/ecs" # Path to the ECS module
+# # ECS Module
+# # Configures the ECS (Elastic Container Service) service.
+# module "ecs" {
+#   source = "./modules/ecs" # Path to the ECS module
 
-  # Name of the cluster, task, and service
-  cluster_name = "aws-cluster-v1"
-  task_name    = "web-task"
-  service_name = "web-service"
-  # ID of the public subnet
-  public_subnet_id = module.vpc.public_subnet_id
-  # Security group ID for public instances
-  sg_public_instance_id = module.security_group.sg_public_instance_id
+#   # Name of the cluster, task, and service
+#   cluster_name = "aws-cluster-v1"
+#   task_name    = "web-task"
+#   service_name = "web-service"
+#   # ID of the public subnet
+#   public_subnet_id = module.vpc.public_subnet_id
+#   # Security group ID for public instances
+#   sg_public_instance_id = module.security_group.sg_public_instance_id
 
-  # Database details
-  db_host     = module.database.db_host
-  db_port     = module.database.db_port
-  db_username = module.database.db_username
-  db_password = module.database.db_password
+#   # Database details
+#   db_host     = module.database.db_host
+#   db_port     = module.database.db_port
+#   db_username = module.database.db_username
+#   db_password = module.database.db_password
 
-  # Tags for the resource
-  tags = var.tags
-}
+#   # Tags for the resource
+#   tags = var.tags
+# }
 
-# RDS Module
-# Configures the RDS (Relational Database Service) database.
-module "database" {
-  source = "./modules/database" # Path to the RDS module
+# # RDS Module
+# # Configures the RDS (Relational Database Service) database.
+# module "database" {
+#   source = "./modules/database" # Path to the RDS module
 
-  # ID of the VPC where the database will be created
-  vpc_id = module.vpc.vpc_id
-  # CIDR to allow access to RDS
-  rds_access_cidr = var.rds_access_cidr
-  # Database password
-  rds_password = var.rds_password
-  # ID of the private subnets
-  private_subnet_id = module.vpc.private_subnet_ids
-  # Security group ID for RDS
-  rds_security_group_id = module.security_group.rds_sg_id
+#   # ID of the VPC where the database will be created
+#   vpc_id = module.vpc.vpc_id
+#   # CIDR to allow access to RDS
+#   rds_access_cidr = var.rds_access_cidr
+#   # Database password
+#   rds_password = var.rds_password
+#   # ID of the private subnets
+#   private_subnet_id = module.vpc.private_subnet_ids
+#   # Security group ID for RDS
+#   rds_security_group_id = module.security_group.rds_sg_id
 
-  # Tags for the resource
-  tags = var.tags
-}
+#   # Tags for the resource
+#   tags = var.tags
+# }

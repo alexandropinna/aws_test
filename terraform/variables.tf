@@ -1,3 +1,11 @@
+# --- Global variables for tags ---
+
+# General tags for all project resources
+variable "tags" {
+  description = "Project tags"
+  type        = map(string)
+}
+
 # --- Variables for the VPC (Virtual Private Cloud) ---
 
 # CIDR of the VPC in the Virginia region
@@ -35,9 +43,8 @@ variable "ec2_specs" {
 # Set of names for the EC2 instances
 variable "instancias" {
   type        = set(string)
-  default     = ["apache"]
   description = "Names of the instances"
-}
+} 
 
 # --- Variables for the RDS (Relational Database Service) database ---
 
@@ -53,10 +60,3 @@ variable "rds_access_cidr" {
   type        = string
 }
 
-# --- Global variables for tags ---
-
-# General tags for all project resources
-variable "tags" {
-  description = "Project tags"
-  type        = map(string)
-}

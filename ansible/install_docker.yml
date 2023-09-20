@@ -1,0 +1,85 @@
+---
+# Playbook for installing Docker on Debian servers
+- name: Install Docker on Debian
+  hosts: test-2-aws_test-dev-virginia  # Target host or group in Ansible inventory
+  become: true  # Uncomment to gain root privileges if needed
+
+  vars:
+    apt_cache_update: true
+    apt_dependencies: ["ca-certificates", "curl", "gnupg"]
+    gpg_key_dir: "/etc/apt/keyrings"
+    gpg_key_file: "docker.gpg"
+    gpg_key_url: "https://download.docker.com/linux/debian/gpg"
+    docker_repo_content: >
+      deb [arch="$(dpkg --print-architecture)" signed-by={{ gpg_key_dir }}/{{ gpg_key_file }}]
+      https://download.docker.com/linux/debian {{ debian_codename }} stable
+    docker_components: ["docker", "containerd", "docker-compose"]
+
+  tasks:
+    # Update APT package cache
+    - name: Update APT cache
+      ansible.builtin.apt:
+        update_cache: "{{ apt_cache_update }}"
+
+    # Install necessary dependencies for Docker
+    - name: Install dependencies
+      ansible.builtin.apt:
+        name: "{{ apt_dependencies }}"
+        state: present  # Ensure dependencies are installed
+
+    # Create directory to store Docker's GPG key
+    - name: Create directory for Docker's GPG key
+      ansible.builtin.file:
+        path: "{{ gpg_key_dir }}"
+        state: directory  # State should be a directory
+        mode: "0755"  # Directory permissions
+
+    # Check if Docker's GPG key already exists on the system
+    - name: Check if Docker's GPG key is already present
+      ansible.builtin.stat:
+        path: "{{ gpg_key_dir }}/{{ gpg_key_file }}"
+      register: docker_gpg_key  # Register the result for future use
+
+    # Download Docker's GPG key if it doesn't exist
+    - name: Download Docker's GPG key
+      ansible.builtin.get_url:
+        url: "{{ gpg_key_url }}"
+        dest: "/tmp/{{ gpg_key_file }}"
+        mode: "0644"  # File permissions
+      when: not docker_gpg_key.stat.exists  # Only if the key doesn't exist
+
+    # Import Docker's GPG key into the keyring
+    - name: Import Docker's GPG key
+      ansible.builtin.command:
+        cmd: gpg --dearmor -o "{{ gpg_key_dir }}/{{ gpg_key_file }}" "/tmp/{{ gpg_key_file }}"
+      when: not docker_gpg_key.stat.exists  # Only if the key doesn't exist
+      changed_when: true  # Mark the task as changed
+
+    # Set proper permissions for the GPG key
+    - name: Set permissions for the GPG key
+      ansible.builtin.file:
+        path: "{{ gpg_key_dir }}/{{ gpg_key_file }}"
+        mode: '0644'  # File permissions
+
+    # Get Debian release name to configure Docker repository
+    - name: Get Debian release name using Ansible facts
+      ansible.builtin.set_fact:
+        debian_codename: "{{ ansible_facts['distribution_release'] }}"
+
+    # Add Docker repository to APT sources list
+    - name: Add Docker repository to APT sources
+      ansible.builtin.copy:
+        content: "{{ docker_repo_content }}"
+        dest: "/etc/apt/sources.list.d/docker.list"
+        mode: "0644"  # File permissions
+
+    # Update APT cache to include the new Docker repository
+    - name: Update APT cache again
+      ansible.builtin.apt:
+        update_cache: "{{ apt_cache_update }}"
+
+    # Install Docker and related components
+    - name: Install Docker and related components
+      ansible.builtin.apt:
+        name: "{{ docker_components }}"
+        state: present  # Ensure components are installed
